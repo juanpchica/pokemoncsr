@@ -12,6 +12,10 @@ export default () => {
     );
     return data;
   });
+  if (data) {
+    console.log(data.base, "normal");
+    console.log(Object.entries(data.base), "converted");
+  }
   return (
     <div>
       <Head>
