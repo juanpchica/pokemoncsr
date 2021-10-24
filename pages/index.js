@@ -4,19 +4,9 @@ import { useState } from "react";
 import { Container, FormControl, Row, Col, Card } from "react-bootstrap";
 import axios from "axios";
 
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { useQuery } from "react-query";
 
-const queryClient = new QueryClient();
-
-export default function Home() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <PokemonList />
-    </QueryClientProvider>
-  );
-}
-
-const PokemonList = () => {
+const Home = () => {
   const [query, setQuery] = useState("");
   const { data } = useQuery(["q", query], async () => {
     const { data } = await axios.get(`/api/search?q=${escape(query)}`);
@@ -67,3 +57,5 @@ const PokemonList = () => {
     </div>
   );
 };
+
+export default Home;
