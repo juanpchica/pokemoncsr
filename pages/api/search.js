@@ -10,6 +10,6 @@ export default (req, res) => {
     .json(
       pokemon
         .filter(({ name: { english } }) => english.match(filter))
-        .slice(0, 5)
+        .slice(0, 10)
     );
 };
