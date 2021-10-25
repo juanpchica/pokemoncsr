@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import Head from "next/head";
 import { Container, Row, Col } from "react-bootstrap";
 
-export default () => {
+const NamePokemon = () => {
   const router = useRouter();
   const { data } = useQuery(["name", router.query.name], async () => {
     const { data } = await axios.get(
@@ -51,3 +51,11 @@ export default () => {
     </div>
   );
 };
+
+NamePokemon.getInitialProps = async ({ req }) => {
+  const res = await fetch("https://api.github.com/repos/developit/preact");
+  const json = await res.json();
+  return { stars: json.stargazers_count };
+};
+
+export default NamePokemon;
