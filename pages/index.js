@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { useQuery } from "react-query";
 
-const Home = () => {
+export default () => {
   const [query, setQuery] = useState("");
   const { data } = useQuery(["q", query], async () => {
     const { data } = await axios.get(`/api/search?q=${escape(query)}`);
@@ -57,5 +57,8 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;
+export async function getStaticProps(context) {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}

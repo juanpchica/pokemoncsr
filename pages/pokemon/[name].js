@@ -1,21 +1,31 @@
-import { useRouter } from "next/router";
 import axios from "axios";
-import { useQuery } from "react-query";
 import Head from "next/head";
 import { Container, Row, Col } from "react-bootstrap";
 
-const NamePokemon = () => {
-  const router = useRouter();
-  const { data } = useQuery(["name", router.query.name], async () => {
-    const { data } = await axios.get(
-      `/api/pokemon?name=${escape(router.query.name)}`
-    );
-    return data;
-  });
-  if (data) {
-    console.log(data.base, "normal");
-    console.log(Object.entries(data.base), "converted");
-  }
+import pokemon from "../../pokemon.json";
+
+export async function getStaticPaths() {
+  return {
+    paths: pokemon.map(({ name: { english } }) => ({
+      params: {
+        name: english,
+      },
+    })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      data: pokemon.filter(
+        ({ name: { english } }) => english === context.params.name
+      )[0],
+    },
+  };
+}
+
+export default ({ data }) => {
   return (
     <div>
       <Head>
@@ -51,11 +61,3 @@ const NamePokemon = () => {
     </div>
   );
 };
-
-NamePokemon.getInitialProps = async ({ req }) => {
-  const res = await fetch("https://api.github.com/repos/developit/preact");
-  const json = await res.json();
-  return { stars: json.stargazers_count };
-};
-
-export default NamePokemon;
