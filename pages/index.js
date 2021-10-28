@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 
 import { useAuthState, useAuthDispatch } from "../components/context";
 
-export async function getInitialProps(context) {
+export async function getServerSideProps(context) {
   console.log(context, "context server indexxx");
   return {
     props: {},
