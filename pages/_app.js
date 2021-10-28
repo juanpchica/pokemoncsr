@@ -1,15 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
-
-const queryClient = new QueryClient();
+import { AuthProvider } from "../components/context";
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-    </QueryClientProvider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

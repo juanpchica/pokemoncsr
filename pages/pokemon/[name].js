@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getInitialProps(context) {
+export async function getStaticProps(context) {
   return {
     props: {
       data: pokemon.filter(
